@@ -6,7 +6,7 @@
 		
 		
 		
-		<p>Ongi etorri Bilboko txakurtegira!!</p>
+		<p>Ongi etorri Bilboko txakurtegira!!!</p>
 		<a class="boton" href="perro-controller">Ver perros</a>
 		
 		</div>
