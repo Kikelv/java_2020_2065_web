@@ -13,11 +13,14 @@ import com.ipartek.formacion.modelo.PerroDAOSqlite;
 import com.ipartek.formacion.pojo.Perro;
 
 /**
- * @WebServlet("/perro") es la URL donde escucha este controlador
+ * @WebServlet("/perro-controller") es la URL donde escucha este controlador. No
+ * tiene nada que ver con el nombre de la clase PerroController extends
+ * HttpServlet
  */
-@WebServlet("/perro")
+@WebServlet("/perro-controller")
 public class PerroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private PerroDAOSqlite dao = PerroDAOSqlite.getInstance();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -27,27 +30,29 @@ public class PerroController extends HttpServlet {
 			throws ServletException, IOException {
 
 		ArrayList<Perro> lista = new ArrayList<Perro>();
-
-		// conseguir perros llamado al modelo
 		try {
-			PerroDAOSqlite dao = PerroDAOSqlite.getInstance();
+			// conseguir datos llamado al modelo ( bbdd )
 			lista = dao.listar();
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 
-		} finally {
-			lista.add(new Perro("buba", "boxer", 3));
-			lista.add(new Perro("Snoppy", "cruce", 3));
-			lista.add(new Perro("pulgas", "otra", 20));
 		}
 
-		// enviarlos a la JSP
+		// Los DATOS (atributos) a enviar a la vista para pintarlos
+		// request.setAttribute( String, Objeto);
+		// String podeis poner el nombre que querais, pero eso mismo nombre lo usaremos
+		// en la JSP para acceder al Objeto
+		// Objeto, podeis enviar lo que querais: String, boolean, Perro,
+		// ArrayList<Perro>,....
 		request.setAttribute("perros", lista);
+		request.setAttribute("mensaje", "Recuperados " + lista.size() + " perros");
+		request.setAttribute("total", "Total: " + lista.size() + " perros");
 
-		// ir a la JSP
-		request.getRequestDispatcher("perros.jsp").forward(request, response);
+		// Comando para ir a la VISTA, hacemos un "forwad" y escribimos el nombre de la
+		// JSP "perros.jsp"
+		request.getRequestDispatcher("tabla-perros.jsp").forward(request, response);
 
 	}
 
@@ -57,16 +62,27 @@ public class PerroController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
-		//recibri datos del formulario, fijaros en el input el atributo 'name'
+
+		// recibri datos del formulario, fijaros en el input el atributo 'name'
 		String parametroNombre = request.getParameter("nombre");
 		String raza = request.getParameter("raza");
-		
+		String historia = request.getParameter("historia");
+
 		Perro p = new Perro();
 		p.setNombre(parametroNombre);
 		p.setRaza(raza);
-		
+
+		p.setHistoria(historia);
+
+		// guardarlo en la bbdd
+		try {
+			dao.crear(p);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("mensaje", "Lo sentimos pero " + p.getNombre() + " de perro ya existe");
+		}
+
 		// enviarlos a la JSP
 		request.setAttribute("perro", p);
 

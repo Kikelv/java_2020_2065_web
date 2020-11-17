@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>javaweb</artifactId>
+	<artifactId>javaweb2</artifactId>
 	<packaging>war</packaging> <!-- ya no es un JAR, los web se exportan como WAR -->
 	<version>0.0.1</version>
-	<name>javaweb</name>
+	<name>javaweb2</name>
 
 	<!-- comunes para todo el POM -->
 	<properties>
@@ -151,6 +151,6 @@
 		</plugins>
 
 
-		<finalName>javaweb</finalName>
+		<finalName>javaweb2</finalName>
 	</build>
 </project>
