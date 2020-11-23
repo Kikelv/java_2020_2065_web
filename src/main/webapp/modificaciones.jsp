@@ -3,27 +3,29 @@
 <jsp:include page="includes/cabecera.jsp" />
 <div class="container2">
 	<div class="caja-centrada">
-		<h1>Dar de alta nuevo Perro</h1>
 		
+		<p>Vas a modificar los datos de ${perro.nombre}</p>		
+		
+	
 
-			<p>Esto envia datos por POST al controlador</p>
+			
 		
-		<form method="post" action="perro-controller">
+		<form method="post" action="perro-modificar">
 			
 			<div class="form-group">
 				<label for="nombre">Nombre:</label>
-				<input type="text" autofocus id="nombre" name="nombre" placeholder="Nombre del perro" required>
+				<input type="text" autofocus id="nombre" name="nombre" placeholder="${perro.nombre}" required>
 			</div>
 			
 			
 			<div class="form-group">
 				<label for="raza">Raza:</label>
-				<input type="text" id="raza" name="raza" placeholder="Raza del perro" required>
+				<input type="text" id="raza" name="raza" placeholder="Raza actual es: ${perro.raza}" required>
 			</div>
 			
 			<div class="form-group">
 				<label for="peso">Peso(kg):</label>
-				<input type="number" id="peso" name="peso" placeholder="Peso en Kilogramos" required>
+				<input type="number" id="peso" name="peso" placeholder="Peso actual: ${perro.peso}" required>
 			</div>
 			
 			<div class="form-check">

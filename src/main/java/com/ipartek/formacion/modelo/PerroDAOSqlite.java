@@ -3,6 +3,7 @@ package com.ipartek.formacion.modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.pojo.Perro;
@@ -37,15 +38,16 @@ public class PerroDAOSqlite implements PerroDao {
 
 			while (rs.next()) {
 
-				Perro p = new Perro();
-				p.setId(rs.getInt("id"));
-				p.setNombre(rs.getString("nombre"));
-				p.setRaza(rs.getString("raza"));
-				p.setPeso(rs.getFloat("peso"));
-				p.setVacunado(rs.getBoolean("vacunado"));
-				p.setHistoria(rs.getString("historia"));
+				/*
+				 * Perro p = new Perro(); p.setId(rs.getInt("id"));
+				 * p.setNombre(rs.getString("nombre")); p.setRaza(rs.getString("raza"));
+				 * p.setPeso(rs.getFloat("peso")); p.setVacunado(rs.getBoolean("vacunado"));
+				 * p.setHistoria(rs.getString("historia"));
+				 * 
+				 * perros.add(p);
+				 */
 
-				perros.add(p);
+				perros.add(mapper(rs));
 
 			} // while
 
@@ -58,7 +60,7 @@ public class PerroDAOSqlite implements PerroDao {
 	@Override
 	public Perro recuperar(int id) {
 		Perro perro = null;
-		final String SQL = "SELECT id, nombre, raza, historia FROM perro WHERE id = ?;";
+		final String SQL = "SELECT id, nombre, raza, peso, vacunado, historia FROM perro WHERE id = ?;";
 
 		try (Connection conn = ConectionManager.getConnection(); PreparedStatement pst = conn.prepareStatement(SQL);) {
 
@@ -68,9 +70,15 @@ public class PerroDAOSqlite implements PerroDao {
 
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next()) {
-					perro = new Perro();
-					perro.setId(rs.getInt("id"));
-					perro.setNombre(rs.getString("nombre"));
+					/*
+					 * perro = new Perro(); perro.setId(rs.getInt("id"));
+					 * perro.setNombre(rs.getString("nombre")); perro.setRaza(rs.getString("raza"));
+					 * perro.setPeso(rs.getFloat("peso"));
+					 * perro.setVacunado(rs.getBoolean("vacunado"));
+					 * perro.setHistoria(rs.getString("historia"));
+					 */
+					perro = mapper(rs);
+
 				} // while
 			} // 2� try
 
@@ -158,6 +166,27 @@ public class PerroDAOSqlite implements PerroDao {
 			e.printStackTrace();
 		}
 		return resultado;
+	}
+
+	/**
+	 * Mapea un ResultSet a un objeto Perro
+	 * 
+	 * @param rs ResultSet de la consulta SQL
+	 * @return Perro
+	 * @throws SQLException
+	 */
+	private Perro mapper(ResultSet rs) throws SQLException {
+
+		Perro perro = new Perro();
+
+		perro.setId(rs.getInt("id"));
+		perro.setNombre(rs.getString("nombre"));
+		perro.setRaza(rs.getString("raza"));
+		perro.setPeso(rs.getFloat("peso"));
+		perro.setVacunado(rs.getBoolean("vacunado"));
+		perro.setHistoria(rs.getString("historia"));
+
+		return perro;
 	}
 
 }

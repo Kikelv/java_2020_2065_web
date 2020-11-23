@@ -1,10 +1,22 @@
+/*
+*    1. reset o normalize ( se suele incluir en head con otro .css )
+*    2. Animaciones y Efectos ( no vamos a verla en este curso )
+*    3. variables globales
+*    4. Etiquetas de HTML
+*    5. Layouts ( header, main, footer, nav, ... )
+*    6. Clases ( botones, hero .... )
+*    7. Selectores mas particulares ( para un id concreto, o pagina,....)
+*/
+
+
+
 *{
 	margin: 0;
 	padding: 0;
 }
 :root {
-	--color-primary: #2196f3;
-	--color-accent: #ff9800;
+	--color-primary: #f75c03;
+	--color-accent: #2274a5;
 	--color-blanco: #FFF;
 	--color-azulClaro: #83d0f2;
 }
@@ -13,6 +25,10 @@ body{
 	font-family: Roboto, sans-serif;
     color: black;
     background-color: var(--color-blanco);
+}
+h1{
+	color: var(--color-primary);
+	text-shadow: 1px 1px 1px black;
 }
 header{
 	position: sticky;
@@ -52,14 +68,57 @@ nav li a:hover {
 .container {
 	height: 100vh;
 	margin: auto;
-	padding: 0 0.75rem;
+}
+.container2{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+/* -----FORMULARIO--------*/
+
+form{
+	border-radius: 5px;
+	background-color: var(--color-azulClaro);
+	padding: 1rem;
+	margin: 1rem auto;
+	box-shadow: 2px 2px 2px black;
+	max-width: 50%;
+}
+
+.form-group{
+	margin-bottom: 1rem;
+	display: flex;
+	justify-content: space-between;
+}
+.form.check{
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 1rem;
+}
+#vacunado{
+	display: inline;
+	width: auto;
+}
+label{
+	width: 20%;
+}
+input, textarea{
+	width: 80%;
+	border-radius: 5px;
+	padding: .5rem;
+}
+
+.caja-centrada{
+	width: 75%;
+	margin: auto;
 }
 
 /* ---- TABLA-----*/
 
 table {
   border-collapse: collapse;
-  max-width: 60%;
+  width: 100%;
   min-width: 40%;
   margin: 1rem 0;
 }
@@ -101,6 +160,7 @@ tfoot td{
 	border-radius: 10px;
 	box-shadow: 4px 4px 8px black;
 	margin: 3rem auto;
+	color: var(--color-primary)
 }
 .card>img{
 	display: inline-block;
@@ -124,7 +184,7 @@ footer {
 /*----CSS HERO----*/
 
 .hero-image {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/foto-fondo.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../images/foto-fondo.jpg");
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -139,23 +199,44 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  text-shadow: 1px 1px 1px black;
+  font-size: 2rem;
+}
+.hero-text p{
+	letter-spacing: 0.2rem;
 }
 
-
 .boton{
-	border: 1px solid var(--color-blanco);
+	border: 2px solid var(--color-blanco);
 	border-radius: 10px;
 	background-color: transparent;
 	color: var(--color-blanco);
+	letter-spacing: 0.2rem;
 	padding: 0.6rem 0.4rem;
-	margin: 1rem;
+	margin: 1rem auto;
 	display: flex;
+	width: 45%;
 	justify-content: space-around;
 	text-decoration: none;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 .boton:hover{
 	background-color: var(--color-blanco);
-	border: 1px solid var(--color-primary);
+	border: 2px solid var(--color-primary);
 	color: var(--color-primary);
+	text-shadow: none;
+}
+#eliminar{
+	background-color: var(--color-primary);
+	cursor: pointer;
+}
+#eliminar:hover{
+	background-color: transparent;
+}
+.fa{
+	color: var(--color-primary)
+}
+.fa:hover{
+	color: var(--color-blanco)
 }
